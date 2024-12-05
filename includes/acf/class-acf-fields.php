@@ -38,30 +38,6 @@ class Fields {
 	public $acf;
 
 	/**
-	 * Metabox template directory path.
-	 *
-	 * @since 1.0.0
-	 * @var string
-	 */
-	private $metabox_path = 'assets/templates/wordpress/settings/metaboxes/';
-
-	/**
-	 * Partials template directory path.
-	 *
-	 * @since 1.0.0
-	 * @var string
-	 */
-	private $partial_path = 'assets/templates/wordpress/settings/partials/';
-
-	/**
-	 * ACF Fields setting key in Settings.
-	 *
-	 * @since 1.0.0
-	 * @var string
-	 */
-	public $key_fields_enabled = 'fields_enabled';
-
-	/**
 	 * Field Group Key Prefix.
 	 *
 	 * @since 1.0.0
@@ -82,7 +58,7 @@ class Fields {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param object $acf The ACF object.
+	 * @param ACF\Loader $acf The ACF object.
 	 */
 	public function __construct( $acf ) {
 
@@ -90,8 +66,8 @@ class Fields {
 		$this->plugin = $acf->plugin;
 		$this->acf    = $acf;
 
-		// Init when this plugin is loaded.
-		add_action( 'tn_resources/acf/loaded', [ $this, 'initialise' ] );
+		// Init when this ACF class has loaded all its classes.
+		add_action( 'tn_resources/acf/objects/loaded', [ $this, 'initialise' ] );
 
 	}
 
@@ -121,32 +97,8 @@ class Fields {
 	 */
 	public function register_hooks() {
 
-		// Separate callbacks into descriptive methods.
-		$this->register_hooks_settings();
+		// Register ACF hooks.
 		$this->register_hooks_acf();
-
-	}
-
-	/**
-	 * Registers "Settings" hooks.
-	 *
-	 * @since 1.0.0
-	 */
-	private function register_hooks_settings() {
-
-		/*
-		// Setting up this class requires settings to have been initialised.
-		add_filter( 'tn_resources/admin/settings/initialised', [ $this, 'bootstrap_functionality' ] );
-
-		// Add our settings to default settings.
-		add_filter( 'tn_resources/admin/settings/defaults', [ $this, 'settings_get_defaults' ] );
-
-		// Add our metaboxes to the Site Settings screen.
-		add_filter( 'tn_resources_settings/settings/page/meta_boxes/added', [ $this, 'settings_meta_boxes_append' ], 20, 2 );
-
-		// Save data from Site Settings form submissions.
-		add_action( 'tn_resources_settings/settings/form/save/before', [ $this, 'settings_meta_box_save' ] );
-		*/
 
 	}
 
@@ -157,160 +109,11 @@ class Fields {
 	 */
 	private function register_hooks_acf() {
 
-		// Add field groups.
+		// Add Field Groups.
 		add_action( 'acf/init', [ $this, 'field_groups_add' ] );
 
-		// Add fields.
+		// Add Fields.
 		add_action( 'acf/init', [ $this, 'fields_add' ] );
-
-	}
-
-	/**
-	 * Bootstraps the functionality in this class.
-	 *
-	 * @since 1.0.0
-	 */
-	public function bootstrap_functionality() {
-
-		/**
-		 * Fires when all ACF objects have been loaded.
-		 *
-		 * @since 1.0.0
-		 */
-		do_action( 'tn_resources/acf/bootstrapped' );
-
-	}
-
-	/**
-	 * Appends our settings to the default core settings.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $settings The existing default settings.
-	 * @return array $settings The modified default settings.
-	 */
-	public function settings_get_defaults( $settings ) {
-
-		// Add our defaults.
-		$settings[ $this->key_fields_enabled ] = $this->setting_fields_enabled_default_get();
-
-		// --<
-		return $settings;
-
-	}
-
-	/**
-	 * Appends our metaboxes to the Settings screen.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $screen_id The Settings Screen ID.
-	 * @param array  $data The array of metabox data.
-	 */
-	public function settings_meta_boxes_append( $screen_id, $data ) {
-
-		// Define a handle for the following metabox.
-		$handle = 'tn_resources_settings_acf';
-
-		// Add the metabox.
-		add_meta_box(
-			$handle,
-			__( 'ACF', 'transition-resources' ),
-			[ $this, 'settings_meta_box_render' ], // Callback.
-			$screen_id, // Screen ID.
-			'normal', // Column: options are 'normal' and 'side'.
-			'core', // Vertical placement: options are 'core', 'high', 'low'.
-			$data
-		);
-
-	}
-
-	/**
-	 * Renders "Custom Post Types" meta box on Settings screen.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param mixed $unused Unused param.
-	 * @param array $metabox Array containing id, title, callback, and args elements.
-	 */
-	public function settings_meta_box_render( $unused, $metabox ) {
-
-		// Get our settings.
-		$fields_enabled = $this->setting_fields_enabled_get();
-
-		// Include template file.
-		include TRANSITION_RESOURCES_PATH . $this->metabox_path . 'metabox-settings-acf-fields.php';
-
-	}
-
-	/**
-	 * Saves the data from the "ACF Fields" metabox.
-	 *
-	 * Adds the data to the settings array. The settings are actually saved later.
-	 *
-	 * @see Admin\Page_Base::form_submitted()
-	 *
-	 * @since 1.0.0
-	 */
-	public function settings_meta_box_save() {
-
-		// Find the data. Nonce has already been checked.
-		// phpcs:ignore WordPress.Security.NonceVerification.Missing
-		$fields_enabled = filter_input( INPUT_POST, $this->key_fields_enabled, FILTER_SANITIZE_SPECIAL_CHARS );
-
-		// Sanitise data.
-		$fields_enabled = sanitize_text_field( wp_unslash( $fields_enabled ) );
-
-		// Set the setting.
-		$this->setting_fields_enabled_set( $fields_enabled );
-
-	}
-
-	/**
-	 * Gets the default "Modify Shortcuts Fields" setting.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return string $fields_enabled The default setting value.
-	 */
-	public function setting_fields_enabled_default_get() {
-
-		// Defaults to not active.
-		$fields_enabled = 'no';
-
-		// --<
-		return $fields_enabled;
-
-	}
-
-	/**
-	 * Gets the "Modify Shortcuts Fields" setting.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return string $fields_enabled The setting if found, default otherwise.
-	 */
-	public function setting_fields_enabled_get() {
-
-		// Get the setting.
-		$fields_enabled = $this->plugin->admin->setting_get( $this->key_fields_enabled );
-
-		// Return setting or default if empty.
-		return ! empty( $fields_enabled ) ? $fields_enabled : $this->setting_fields_enabled_default_get();
-
-	}
-
-	/**
-	 * Sets the "Modify Shortcuts Fields" setting.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $fields_enabled The setting value.
-	 */
-	public function setting_fields_enabled_set( $fields_enabled ) {
-
-		// Set the setting.
-		$this->plugin->admin->setting_set( $this->key_fields_enabled, $fields_enabled );
 
 	}
 

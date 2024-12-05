@@ -43,7 +43,7 @@ class Loader {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param object $plugin The plugin object.
+	 * @param Plugin $plugin The plugin object.
 	 */
 	public function __construct( $plugin ) {
 
@@ -62,8 +62,8 @@ class Loader {
 	 */
 	public function initialise() {
 
-		// Bootstrap class.
-		$this->setup_objects();
+		// Require settings to have been initialised.
+		add_filter( 'tn_resources/admin/settings/initialised', [ $this, 'setup_objects' ] );
 
 		/**
 		 * Fires when this class is loaded.
@@ -81,8 +81,13 @@ class Loader {
 	 */
 	public function setup_objects() {
 
-		// Instantiate objects.
-		$this->fields = new Fields( $this );
+		// Get our active Custom Post Types.
+		$cpts_enabled = $this->plugin->cpt->setting_cpts_enabled_get();
+
+		// Maybe add ACF Fields to the "Resources" Custom Post Type.
+		if ( ! empty( $cpts_enabled['resources'] ) ) {
+			$this->fields = new Fields( $this );
+		}
 
 		/**
 		 * Fires when all ACF objects have been loaded.
