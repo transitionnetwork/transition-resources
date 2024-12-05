@@ -66,7 +66,7 @@ class Page_Settings extends Page_Base {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param object $admin The admin object.
+	 * @param Admin\Loader $admin The admin object.
 	 */
 	public function __construct( $admin ) {
 
