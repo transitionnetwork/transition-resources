@@ -12,7 +12,7 @@
  * License:           MIT
  * License URI:       https://opensource.org/license/MIT
  * Requires at least: 6.5
- * Requires PHP:      8.0
+ * Requires PHP:      7.4
  * Text Domain:       transition-resources
  * Domain Path:       /languages
  *
