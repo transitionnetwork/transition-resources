@@ -70,20 +70,52 @@ class Resources extends Base {
 	public $taxonomy_rest_base = 'resource-type';
 
 	/**
-	 * Additional taxonomy name.
+	 * Second taxonomy name.
 	 *
 	 * @since 1.0.0
 	 * @var string
 	 */
-	public $taxonomy_alt_name = 'project-type';
+	public $taxonomy_two_name = 'project-type';
 
 	/**
-	 * Additional taxonomy REST base.
+	 * Second taxonomy REST base.
 	 *
 	 * @since 1.0.0
 	 * @var string
 	 */
-	public $taxonomy_alt_rest_base = 'project-type';
+	public $taxonomy_two_rest_base = 'project-type';
+
+	/**
+	 * Third taxonomy name.
+	 *
+	 * @since 1.0.0
+	 * @var string
+	 */
+	public $taxonomy_three_name = 'content-type';
+
+	/**
+	 * Third taxonomy REST base.
+	 *
+	 * @since 1.0.0
+	 * @var string
+	 */
+	public $taxonomy_three_rest_base = 'content-type';
+
+	/**
+	 * Fourth taxonomy name.
+	 *
+	 * @since 1.0.0
+	 * @var string
+	 */
+	public $taxonomy_four_name = 'country';
+
+	/**
+	 * Fourth taxonomy REST base.
+	 *
+	 * @since 1.0.0
+	 * @var string
+	 */
+	public $taxonomy_four_rest_base = 'country';
 
 	/**
 	 * Free taxonomy name.
@@ -341,11 +373,11 @@ class Resources extends Base {
 	}
 
 	/**
-	 * Creates an additional Custom Taxonomy.
+	 * Creates a second Custom Taxonomy.
 	 *
 	 * @since 1.0.0
 	 */
-	public function taxonomy_alt_create() {
+	public function taxonomy_two_create() {
 
 		// Only register once.
 		static $registered;
@@ -371,7 +403,7 @@ class Resources extends Base {
 
 		// Rewrite rules.
 		$rewrite = [
-			'slug' => 'resource-types',
+			'slug' => 'project-types',
 		];
 
 		// Arguments.
@@ -384,11 +416,121 @@ class Resources extends Base {
 			'show_ui'           => true,
 			// REST setup.
 			'show_in_rest'      => true,
-			'rest_base'         => $this->taxonomy_rest_base,
+			'rest_base'         => $this->taxonomy_two_rest_base,
 		];
 
 		// Register a taxonomy for this CPT.
-		register_taxonomy( $this->taxonomy_alt_name, $this->post_type_name, $args );
+		register_taxonomy( $this->taxonomy_two_name, $this->post_type_name, $args );
+
+		// Flag done.
+		$registered = true;
+
+	}
+
+	/**
+	 * Creates a third Custom Taxonomy.
+	 *
+	 * @since 1.0.0
+	 */
+	public function taxonomy_three_create() {
+
+		// Only register once.
+		static $registered;
+		if ( $registered ) {
+			return;
+		}
+
+		// Labels.
+		$labels = [
+			'name'              => _x( 'Content Types', 'taxonomy general name', 'transition-resources' ),
+			'singular_name'     => _x( 'Content Type', 'taxonomy singular name', 'transition-resources' ),
+			'search_items'      => __( 'Search Content Types', 'transition-resources' ),
+			'all_items'         => __( 'All Content Types', 'transition-resources' ),
+			'parent_item'       => __( 'Parent Content Type', 'transition-resources' ),
+			'parent_item_colon' => __( 'Parent Content Type:', 'transition-resources' ),
+			'edit_item'         => __( 'Edit Content Type', 'transition-resources' ),
+			'update_item'       => __( 'Update Content Type', 'transition-resources' ),
+			'add_new_item'      => __( 'Add New Content Type', 'transition-resources' ),
+			'new_item_name'     => __( 'New Content Type Name', 'transition-resources' ),
+			'menu_name'         => __( 'Content Types', 'transition-resources' ),
+			'not_found'         => __( 'No Content Types found', 'transition-resources' ),
+		];
+
+		// Rewrite rules.
+		$rewrite = [
+			'slug' => 'content-types',
+		];
+
+		// Arguments.
+		$args = [
+			'hierarchical'      => true,
+			'labels'            => $labels,
+			'rewrite'           => $rewrite,
+			// Show column in wp-admin.
+			'show_admin_column' => true,
+			'show_ui'           => true,
+			// REST setup.
+			'show_in_rest'      => true,
+			'rest_base'         => $this->taxonomy_three_rest_base,
+		];
+
+		// Register a taxonomy for this CPT.
+		register_taxonomy( $this->taxonomy_three_name, $this->post_type_name, $args );
+
+		// Flag done.
+		$registered = true;
+
+	}
+
+	/**
+	 * Creates a fourth Custom Taxonomy.
+	 *
+	 * @since 1.0.0
+	 */
+	public function taxonomy_four_create() {
+
+		// Only register once.
+		static $registered;
+		if ( $registered ) {
+			return;
+		}
+
+		// Labels.
+		$labels = [
+			'name'              => _x( 'Countries', 'taxonomy general name', 'transition-resources' ),
+			'singular_name'     => _x( 'Country', 'taxonomy singular name', 'transition-resources' ),
+			'search_items'      => __( 'Search Countries', 'transition-resources' ),
+			'all_items'         => __( 'All Countries', 'transition-resources' ),
+			'parent_item'       => __( 'Parent Country', 'transition-resources' ),
+			'parent_item_colon' => __( 'Parent Country:', 'transition-resources' ),
+			'edit_item'         => __( 'Edit Country', 'transition-resources' ),
+			'update_item'       => __( 'Update Country', 'transition-resources' ),
+			'add_new_item'      => __( 'Add New Country', 'transition-resources' ),
+			'new_item_name'     => __( 'New Country Name', 'transition-resources' ),
+			'menu_name'         => __( 'Countries', 'transition-resources' ),
+			'not_found'         => __( 'No Countries found', 'transition-resources' ),
+		];
+
+		// Rewrite rules.
+		$rewrite = [
+			'slug' => 'countries',
+		];
+
+		// Arguments.
+		$args = [
+			'hierarchical'      => true,
+			'labels'            => $labels,
+			'rewrite'           => $rewrite,
+			// Show column in wp-admin.
+			'show_admin_column' => true,
+			'show_ui'           => true,
+			// REST setup.
+			'show_in_rest'      => true,
+			'rest_base'         => $this->taxonomy_four_rest_base,
+		];
+
+		// Register a taxonomy for this CPT.
+		register_taxonomy( $this->taxonomy_four_name, $this->post_type_name, $args );
 
 		// Flag done.
 		$registered = true;

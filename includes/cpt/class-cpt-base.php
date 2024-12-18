@@ -92,11 +92,25 @@ abstract class Base {
 			add_action( 'restrict_manage_posts', [ $this, 'taxonomy_filter_post_type' ] );
 		}
 
-		// Maybe create secondary taxonomy.
-		if ( ! empty( $this->taxonomy_alt_name ) ) {
-			add_action( 'init', [ $this, 'taxonomy_alt_create' ] );
-			add_filter( 'wp_terms_checklist_args', [ $this, 'taxonomy_alt_fix_metabox' ], 10, 2 );
-			add_action( 'restrict_manage_posts', [ $this, 'taxonomy_alt_filter_post_type' ] );
+		// Maybe create second taxonomy.
+		if ( ! empty( $this->taxonomy_two_name ) ) {
+			add_action( 'init', [ $this, 'taxonomy_two_create' ] );
+			add_filter( 'wp_terms_checklist_args', [ $this, 'taxonomy_two_fix_metabox' ], 10, 2 );
+			add_action( 'restrict_manage_posts', [ $this, 'taxonomy_two_filter_post_type' ] );
+		}
+
+		// Maybe create third taxonomy.
+		if ( ! empty( $this->taxonomy_three_name ) ) {
+			add_action( 'init', [ $this, 'taxonomy_three_create' ] );
+			add_filter( 'wp_terms_checklist_args', [ $this, 'taxonomy_three_fix_metabox' ], 10, 2 );
+			add_action( 'restrict_manage_posts', [ $this, 'taxonomy_three_filter_post_type' ] );
+		}
+
+		// Maybe create fourth taxonomy.
+		if ( ! empty( $this->taxonomy_four_name ) ) {
+			add_action( 'init', [ $this, 'taxonomy_four_create' ] );
+			add_filter( 'wp_terms_checklist_args', [ $this, 'taxonomy_four_fix_metabox' ], 10, 2 );
+			add_action( 'restrict_manage_posts', [ $this, 'taxonomy_four_filter_post_type' ] );
 		}
 
 		// Maybe create free taxonomy.
@@ -243,14 +257,14 @@ abstract class Base {
 	// -----------------------------------------------------------------------------------
 
 	/**
-	 * Creates an alternative Custom Taxonomy.
+	 * Creates a second Custom Taxonomy.
 	 *
 	 * @since 1.0.0
 	 */
-	public function taxonomy_alt_create() {}
+	public function taxonomy_two_create() {}
 
 	/**
-	 * Fix the alternative Custom Taxonomy metabox.
+	 * Fix the second Custom Taxonomy metabox.
 	 *
 	 * @see https://core.trac.wordpress.org/ticket/10982
 	 *
@@ -259,10 +273,10 @@ abstract class Base {
 	 * @param array $args The existing arguments.
 	 * @param int   $post_id The WordPress post ID.
 	 */
-	public function taxonomy_alt_fix_metabox( $args, $post_id ) {
+	public function taxonomy_two_fix_metabox( $args, $post_id ) {
 
 		// If rendering metabox for our taxonomy.
-		if ( isset( $args['taxonomy'] ) && $args['taxonomy'] === $this->taxonomy_alt_name ) {
+		if ( isset( $args['taxonomy'] ) && $args['taxonomy'] === $this->taxonomy_two_name ) {
 
 			// Setting 'checked_ontop' to false seems to fix this.
 			$args['checked_ontop'] = false;
@@ -275,11 +289,11 @@ abstract class Base {
 	}
 
 	/**
-	 * Adds a filter for the alternative Custom Taxonomy to the Custom Post Type listing.
+	 * Adds a filter for the second Custom Taxonomy to the Custom Post Type listing.
 	 *
 	 * @since 1.0.0
 	 */
-	public function taxonomy_alt_filter_post_type() {
+	public function taxonomy_two_filter_post_type() {
 
 		// Access current post type.
 		global $typenow;
@@ -290,17 +304,161 @@ abstract class Base {
 		}
 
 		// Get tax object.
-		$taxonomy = get_taxonomy( $this->taxonomy_alt_name );
+		$taxonomy = get_taxonomy( $this->taxonomy_two_name );
 
 		// Build args.
 		$args = [
 			/* translators: %s: The plural name of the taxonomy terms. */
 			'show_option_all' => sprintf( __( 'Show All %s', 'transition-resources' ), $taxonomy->label ),
-			'taxonomy'        => $this->taxonomy_alt_name,
-			'name'            => $this->taxonomy_alt_name,
+			'taxonomy'        => $this->taxonomy_two_name,
+			'name'            => $this->taxonomy_two_name,
 			'orderby'         => 'name',
 			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
-			'selected'        => isset( $_GET[ $this->taxonomy_alt_name ] ) ? wp_unslash( $_GET[ $this->taxonomy_alt_name ] ) : '',
+			'selected'        => isset( $_GET[ $this->taxonomy_two_name ] ) ? wp_unslash( $_GET[ $this->taxonomy_two_name ] ) : '',
+			'show_count'      => true,
+			'hide_empty'      => true,
+			'value_field'     => 'slug',
+			'hierarchical'    => 1,
+		];
+
+		// Show a dropdown.
+		wp_dropdown_categories( $args );
+
+	}
+
+	// -----------------------------------------------------------------------------------
+
+	/**
+	 * Creates a third Custom Taxonomy.
+	 *
+	 * @since 1.0.0
+	 */
+	public function taxonomy_three_create() {}
+
+	/**
+	 * Fix the third Custom Taxonomy metabox.
+	 *
+	 * @see https://core.trac.wordpress.org/ticket/10982
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $args The existing arguments.
+	 * @param int   $post_id The WordPress post ID.
+	 */
+	public function taxonomy_three_fix_metabox( $args, $post_id ) {
+
+		// If rendering metabox for our taxonomy.
+		if ( isset( $args['taxonomy'] ) && $args['taxonomy'] === $this->taxonomy_three_name ) {
+
+			// Setting 'checked_ontop' to false seems to fix this.
+			$args['checked_ontop'] = false;
+
+		}
+
+		// --<
+		return $args;
+
+	}
+
+	/**
+	 * Adds a filter for the third Custom Taxonomy to the Custom Post Type listing.
+	 *
+	 * @since 1.0.0
+	 */
+	public function taxonomy_three_filter_post_type() {
+
+		// Access current post type.
+		global $typenow;
+
+		// Bail if not our post type.
+		if ( $typenow !== $this->post_type_name ) {
+			return;
+		}
+
+		// Get tax object.
+		$taxonomy = get_taxonomy( $this->taxonomy_three_name );
+
+		// Build args.
+		$args = [
+			/* translators: %s: The plural name of the taxonomy terms. */
+			'show_option_all' => sprintf( __( 'Show All %s', 'transition-resources' ), $taxonomy->label ),
+			'taxonomy'        => $this->taxonomy_three_name,
+			'name'            => $this->taxonomy_three_name,
+			'orderby'         => 'name',
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
+			'selected'        => isset( $_GET[ $this->taxonomy_three_name ] ) ? wp_unslash( $_GET[ $this->taxonomy_three_name ] ) : '',
+			'show_count'      => true,
+			'hide_empty'      => true,
+			'value_field'     => 'slug',
+			'hierarchical'    => 1,
+		];
+
+		// Show a dropdown.
+		wp_dropdown_categories( $args );
+
+	}
+
+	// -----------------------------------------------------------------------------------
+
+	/**
+	 * Creates a fourth Custom Taxonomy.
+	 *
+	 * @since 1.0.0
+	 */
+	public function taxonomy_four_create() {}
+
+	/**
+	 * Fix the fourth Custom Taxonomy metabox.
+	 *
+	 * @see https://core.trac.wordpress.org/ticket/10982
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $args The existing arguments.
+	 * @param int   $post_id The WordPress post ID.
+	 */
+	public function taxonomy_four_fix_metabox( $args, $post_id ) {
+
+		// If rendering metabox for our taxonomy.
+		if ( isset( $args['taxonomy'] ) && $args['taxonomy'] === $this->taxonomy_four_name ) {
+
+			// Setting 'checked_ontop' to false seems to fix this.
+			$args['checked_ontop'] = false;
+
+		}
+
+		// --<
+		return $args;
+
+	}
+
+	/**
+	 * Adds a filter for the fourth Custom Taxonomy to the Custom Post Type listing.
+	 *
+	 * @since 1.0.0
+	 */
+	public function taxonomy_four_filter_post_type() {
+
+		// Access current post type.
+		global $typenow;
+
+		// Bail if not our post type.
+		if ( $typenow !== $this->post_type_name ) {
+			return;
+		}
+
+		// Get tax object.
+		$taxonomy = get_taxonomy( $this->taxonomy_four_name );
+
+		// Build args.
+		$args = [
+			/* translators: %s: The plural name of the taxonomy terms. */
+			'show_option_all' => sprintf( __( 'Show All %s', 'transition-resources' ), $taxonomy->label ),
+			'taxonomy'        => $this->taxonomy_four_name,
+			'name'            => $this->taxonomy_four_name,
+			'orderby'         => 'name',
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
+			'selected'        => isset( $_GET[ $this->taxonomy_four_name ] ) ? wp_unslash( $_GET[ $this->taxonomy_four_name ] ) : '',
 			'show_count'      => true,
 			'hide_empty'      => true,
 			'value_field'     => 'slug',
