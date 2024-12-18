@@ -316,30 +316,33 @@ class Fields {
 
 		// Add "Related To" Field.
 		$field = [
-			'key'               => $this->field_key . 'related',
-			'parent'            => $this->group_key . 'resource',
-			'label'             => __( 'Related To', 'transition-resources' ),
-			'name'              => 'related',
-			'type'              => 'page_link',
-			'instructions'      => '',
-			'required'          => 0,
-			'conditional_logic' => 0,
-			'wrapper'           => [
+			'key'                  => $this->field_key . 'related',
+			'parent'               => $this->group_key . 'resource',
+			'label'                => __( 'Related To', 'transition-resources' ),
+			'name'                 => 'related',
+			'type'                 => 'post_object',
+			'instructions'         => '',
+			'required'             => 0,
+			'conditional_logic'    => 0,
+			'wrapper'              => [
 				'width' => '',
 				'class' => '',
 				'id'    => '',
 			],
-			'post_type'         => [
+			'post_type'            => [
 				'resource',
 			],
-			'post_status'       => [
+			'post_status'          => [
 				'publish',
 			],
-			'taxonomy'          => [],
-			'allow_archives'    => 0,
-			'multiple'          => 1,
-			'allow_null'        => 1,
-			'allow_in_bindings' => 1,
+			'taxonomy'             => [],
+			'return_format'        => 'object',
+			'multiple'             => 1,
+			'allow_null'           => 1,
+			'ui'                   => 1,
+			'allow_in_bindings'    => 1,
+			'bidirectional'        => 0,
+			'bidirectional_target' => [],
 		];
 
 		// Now add Field.
