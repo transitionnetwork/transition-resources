@@ -329,8 +329,12 @@ class Fields {
 				'class' => '',
 				'id'    => '',
 			],
-			'post_type'            => [],
-			'post_status'          => [],
+			'post_type'            => [
+				'resource',
+			],
+			'post_status'          => [
+				'publish',
+			],
 			'taxonomy'             => [],
 			'return_format'        => 'object',
 			'multiple'             => 1,
