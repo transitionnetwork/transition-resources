@@ -187,6 +187,8 @@ class Fields {
 		$this->field_file_add();
 		$this->field_embed_add();
 		$this->field_related_add();
+		$this->field_license_add();
+		$this->field_author_add();
 
 	}
 
@@ -343,6 +345,98 @@ class Fields {
 			'allow_in_bindings'    => 1,
 			'bidirectional'        => 0,
 			'bidirectional_target' => [],
+		];
+
+		// Now add Field.
+		acf_add_local_field( $field );
+
+	}
+
+	/**
+	 * Adds our ACF "License" Field.
+	 *
+	 * @since 1.0.0
+	 */
+	private function field_license_add() {
+
+		// Add "Related To" Field.
+		$field = [
+			'key'               => $this->field_key . 'license',
+			'parent'            => $this->group_key . 'resource',
+			'label'             => __( 'License', 'transition-resources' ),
+			'name'              => 'license',
+			'type'              => 'select',
+			'instructions'      => '',
+			'required'          => 1,
+			'placeholder'       => '',
+			'allow_null'        => 0,
+			'multiple'          => 0,
+			'ui'                => 0,
+			'return_format'     => 'value',
+			'choices'           => [
+				1 => __( 'CC-BY', 'transition-resources' ),
+				2 => __( 'CC-BY-NC', 'transition-resources' ),
+				3 => __( 'All rights reserved', 'transition-resources' ),
+			],
+			'default_value'     => 1,
+			'conditional_logic' => 0,
+		];
+
+		// Now add Field.
+		acf_add_local_field( $field );
+
+	}
+
+	/**
+	 * Adds our ACF "Author" Field.
+	 *
+	 * @since 1.0.0
+	 */
+	private function field_author_add() {
+
+		// Add "Author" Field.
+		$field = [
+			'key'           => $this->field_key . 'author',
+			'parent'        => $this->group_key . 'resource',
+			'label'         => __( 'Author', 'transition-resources' ),
+			'name'          => 'author',
+			'type'          => 'select',
+			'instructions'  => '',
+			'required'      => 0,
+			'placeholder'   => '',
+			'allow_null'    => 1,
+			'multiple'      => 0,
+			'ui'            => 0,
+			'return_format' => 'value',
+			'choices'       => [
+				1 => __( 'I wrote this', 'transition-resources' ),
+				2 => __( 'Someone else wrote this', 'transition-resources' ),
+			],
+			'default_value' => 1,
+		];
+
+		// Now add Field.
+		acf_add_local_field( $field );
+
+		// Add conditional "Author Link" Field.
+		$field = [
+			'key'               => $this->field_key . 'author_link',
+			'parent'            => $this->group_key . 'resource',
+			'label'             => __( 'Author Link', 'transition-resources' ),
+			'name'              => 'author_link',
+			'type'              => 'url',
+			'instructions'      => __( 'Add the website of the author.', 'transition-resources' ),
+			'required'          => 0,
+			'placeholder'       => '',
+			'conditional_logic' => [
+				[
+					[
+						'field'    => $this->field_key . 'author',
+						'operator' => '==',
+						'value'    => 2,
+					],
+				],
+			],
 		];
 
 		// Now add Field.
