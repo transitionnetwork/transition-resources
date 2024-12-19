@@ -46,6 +46,14 @@ class Plugin {
 	public $acf;
 
 	/**
+	 * Embed loader object.
+	 *
+	 * @since 1.0.0
+	 * @var Embed\Loader
+	 */
+	public $embed;
+
+	/**
 	 * Class constructor.
 	 *
 	 * @since 1.0.0
@@ -97,6 +105,7 @@ class Plugin {
 		$this->admin = new Admin\Loader( $this );
 		$this->cpt   = new CPT\Loader( $this );
 		$this->acf   = new ACF\Loader( $this );
+		$this->embed = new Embed\Loader( $this );
 
 	}
 

@@ -85,6 +85,9 @@ function transition_resources() {
 	// Maybe bootstrap plugin.
 	if ( false === $plugin ) {
 
+		// Always include global functions files.
+		require_once trailingslashit( TRANSITION_RESOURCES_SRC ) . 'functions/functions-templates.php';
+
 		// Bootstrap autoloader.
 		require_once trailingslashit( TRANSITION_RESOURCES_SRC ) . 'class-autoloader.php';
 		$namespace   = 'Transition_Resources';
