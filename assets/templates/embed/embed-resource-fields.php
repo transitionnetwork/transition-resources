@@ -120,30 +120,25 @@ defined( 'ABSPATH' ) || exit;
 
 <?php endif; ?>
 
-<?php $author = get_field( 'author' ); ?>
-<?php if ( ! empty( $author ) ) : ?>
+<?php if ( have_rows( 'authors' ) ) : ?>
 
-	<h4><?php esc_html_e( 'Author', 'transition-resources' ); ?></h4>
+	<h4><?php esc_html_e( 'Authors', 'transition-resources' ); ?></h4>
 	<div class="author-container">
-		<?php if ( 1 === (int) $author ) : ?>
-			<p><?php echo get_the_author_link(); ?></p>
-		<?php elseif ( 2 === (int) $author ) : ?>
-			<?php $author_link = get_field( 'author_link' ); ?>
-			<?php if ( ! empty( $author ) ) : ?>
-				<p>
-					<?php
+		<ul>
+			<?php while ( have_rows( 'authors' ) ) : ?>
+				<?php the_row(); ?>
 
-					printf(
-						'<a href="%1$s" title="%2$s" rel="author external">%3$s</a>',
-						esc_url( $author_link ),
-						esc_attr( __( 'Visit the author&#8217;s website', 'transition-resources' ) ),
-						esc_attr( __( 'Visit the author&#8217;s website', 'transition-resources' ) )
-					);
-
-					?>
-				</p>
-			<?php endif; ?>
-		<?php endif; ?>
+				<?php $author_name = get_sub_field( 'author_name' ); ?>
+				<?php $author_link = get_sub_field( 'author_link' ); ?>
+				<li>
+					<?php if ( ! empty( $author_link ) ) : ?>
+						<a href="<?php echo esc_url( $author_link ); ?>" target="_blank"><?php echo esc_html( $author_name ); ?></a>
+					<?php else : ?>
+						<?php echo esc_html( $author_name ); ?>
+					<?php endif; ?>
+				</li>
+			<?php endwhile; ?>
+		</ul>
 	</div>
 
 <?php endif; ?>
