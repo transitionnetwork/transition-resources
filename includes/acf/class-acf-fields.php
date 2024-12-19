@@ -200,8 +200,11 @@ class Fields {
 	private function field_file_add() {
 
 		// Build allowed extensions.
-		$extensions   = wp_get_audio_extensions();
-		$extensions[] = 'pdf';
+		$extensions = array_merge(
+			wp_get_video_extensions(),
+			wp_get_audio_extensions(),
+			[ 'pdf' ]
+		);
 
 		/**
 		 * Filters the list of allowed file extensions.
