@@ -199,6 +199,19 @@ class Fields {
 	 */
 	private function field_file_add() {
 
+		// Build allowed extensions.
+		$extensions   = wp_get_audio_extensions();
+		$extensions[] = 'pdf';
+
+		/**
+		 * Filters the list of allowed file extensions.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string[] $extensions The default list of allowed extensions.
+		 */
+		$extensions = apply_filters( 'tn_resources/acf/fields/file/extensions', $extensions );
+
 		// Add "Files" Repeater.
 		$field = [
 			'key'               => $this->field_key . 'files',
@@ -226,6 +239,7 @@ class Fields {
 					'name'              => 'file',
 					'type'              => 'file',
 					'instructions'      => '',
+					'mime_types'        => implode( ',', $extensions ),
 					'required'          => 0,
 					'conditional_logic' => 0,
 					'wrapper'           => [
