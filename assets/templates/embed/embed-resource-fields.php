@@ -144,15 +144,18 @@ defined( 'ABSPATH' ) || exit;
 <?php endif; ?>
 
 <?php
-
 $tax_args = [
-	'before'        => '<div class="taxonomy-container"><h4>' . esc_html__( 'Categories &amp; Tags', 'transition-resources' ) . '</h4>',
 	'template'      => '<span class="taxonomy-label">%s:</span> <span class="taxonomy-term-list">%l.</span>',
 	'term_template' => '<a href="%1$s" rel="tag">%2$s</a>',
 	'sep'           => '<br />',
-	'after'         => '</div>',
 ];
 
-the_taxonomies( $tax_args );
-
+$post_terms = get_the_taxonomies( null, $tax_args );
 ?>
+
+<?php if ( ! empty( $post_terms ) ) : ?>
+	<div class="taxonomy-container">
+		<h4><?php esc_html_e( 'Categories &amp; Tags', 'transition-resources' ); ?></h4>
+		<?php echo implode( $tax_args['sep'], $post_terms ); // phpcs:ignore ?>
+	</div>
+<?php endif; ?>
