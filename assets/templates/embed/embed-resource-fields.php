@@ -58,10 +58,10 @@ defined( 'ABSPATH' ) || exit;
 
 	<?php
 	// Count the embeds, which will not show inside an iframe.
-	$count = 0;
-	while ( have_rows( 'embed' ) ) {
-		the_row();
-		$count++;
+	$active_loop = acf_get_loop( 'active' );
+	$count       = 0;
+	if ( ! empty( $active_loop['value'] ) ) {
+		$count = count( $active_loop['value'] );
 	}
 	?>
 
