@@ -1,0 +1,556 @@
+# Copyright (C) 2024 Transition Network
+# This file is distributed under the MIT.
+msgid ""
+msgstr ""
+"Project-Id-Version: Transition Resources 1.0.0a\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/transition-resources\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-12-20T10:31:29+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.11.0\n"
+"X-Domain: transition-resources\n"
+
+#. Plugin Name of the plugin
+#: transition-resources.php
+#: includes/admin/class-admin-page-settings.php:112
+#: includes/admin/class-admin-page-settings.php:115
+#: includes/admin/class-admin-page-settings.php:116
+msgid "Transition Resources"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: transition-resources.php
+msgid "https://github.com/transitionnetwork/transition-resources"
+msgstr ""
+
+#. Description of the plugin
+#: transition-resources.php
+msgid "Provides a Resources Directory for the Transition Network."
+msgstr ""
+
+#. Author of the plugin
+#: transition-resources.php
+msgid "Transition Network"
+msgstr ""
+
+#. Author URI of the plugin
+#: transition-resources.php
+msgid "https://transitionnetwork.org/"
+msgstr ""
+
+#: assets/templates/embed/embed-resource-fields.php:19
+msgid "Attached Files"
+msgstr ""
+
+#: assets/templates/embed/embed-resource-fields.php:40
+#: includes/acf/class-acf-fields.php:252
+msgid "File"
+msgstr ""
+
+#: assets/templates/embed/embed-resource-fields.php:41
+msgid "Download here"
+msgstr ""
+
+#: assets/templates/embed/embed-resource-fields.php:44
+msgid "File size"
+msgstr ""
+
+#: assets/templates/embed/embed-resource-fields.php:70
+#: includes/acf/class-acf-fields.php:300
+msgid "Embedded Media"
+msgstr ""
+
+#. translators: %d: The number of Embedded Media items.
+#: assets/templates/embed/embed-resource-fields.php:77
+msgid "Please visit the resource to view the %d media item."
+msgid_plural "Please visit the resource to view the %d media items."
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/templates/embed/embed-resource-fields.php:94
+msgid "Related Resources"
+msgstr ""
+
+#: assets/templates/embed/embed-resource-fields.php:110
+#: includes/acf/class-acf-fields.php:394
+msgid "License"
+msgstr ""
+
+#: assets/templates/embed/embed-resource-fields.php:113
+#: includes/acf/class-acf-fields.php:405
+msgid "CC-BY"
+msgstr ""
+
+#: assets/templates/embed/embed-resource-fields.php:115
+#: includes/acf/class-acf-fields.php:406
+msgid "CC-BY-NC"
+msgstr ""
+
+#: assets/templates/embed/embed-resource-fields.php:117
+#: includes/acf/class-acf-fields.php:407
+msgid "All rights reserved"
+msgstr ""
+
+#: assets/templates/embed/embed-resource-fields.php:125
+#: includes/acf/class-acf-fields.php:453
+msgid "Authors"
+msgstr ""
+
+#: assets/templates/embed/embed-resource-fields.php:149
+msgid "Categories &amp; Tags"
+msgstr ""
+
+#: assets/templates/wordpress/settings/help/page-settings-help.php:15
+msgid "Settings: For further information about using this plugin, please refer to the readme file that is supplied with it."
+msgstr ""
+
+#: assets/templates/wordpress/settings/metaboxes/metabox-settings-acf-fields.php:17
+msgid "ACF Fields"
+msgstr ""
+
+#: assets/templates/wordpress/settings/metaboxes/metabox-settings-acf-fields.php:20
+#: assets/templates/wordpress/settings/partials/partial-settings-ui-menu.php:19
+msgid "No"
+msgstr ""
+
+#: assets/templates/wordpress/settings/metaboxes/metabox-settings-acf-fields.php:21
+#: assets/templates/wordpress/settings/partials/partial-settings-ui-menu.php:20
+msgid "Yes"
+msgstr ""
+
+#: assets/templates/wordpress/settings/metaboxes/metabox-settings-acf-fields.php:23
+msgid "Description here."
+msgstr ""
+
+#: assets/templates/wordpress/settings/metaboxes/metabox-settings-cpts.php:17
+msgid "Active Custom Post Types"
+msgstr ""
+
+#: assets/templates/wordpress/settings/metaboxes/metabox-settings-submit.php:22
+msgid "Save your settings here."
+msgstr ""
+
+#: assets/templates/wordpress/settings/metaboxes/metabox-settings-submit.php:46
+msgid "Update"
+msgstr ""
+
+#: assets/templates/wordpress/settings/pages/page-settings.php:23
+msgid "Settings saved."
+msgstr ""
+
+#: assets/templates/wordpress/settings/partials/partial-settings-ui-menu.php:16
+msgid "Modify Shortcuts Menu"
+msgstr ""
+
+#: assets/templates/wordpress/settings/partials/partial-settings-ui-menu.php:22
+msgid "Replace links in the CiviCRM Admin Utilities Shortcuts Menu with ones more useful for developers."
+msgstr ""
+
+#: includes/acf/class-acf-fields.php:179
+msgid "Resource Information"
+msgstr ""
+
+#: includes/acf/class-acf-fields.php:233
+msgid "Files"
+msgstr ""
+
+#: includes/acf/class-acf-fields.php:248
+msgid "Add File"
+msgstr ""
+
+#: includes/acf/class-acf-fields.php:268
+msgid "File Description"
+msgstr ""
+
+#: includes/acf/class-acf-fields.php:271
+msgid "Describe the uploaded file. For PDFs, add the text in plaintext format for search purposes."
+msgstr ""
+
+#: includes/acf/class-acf-fields.php:315
+msgid "Add Embedded Media"
+msgstr ""
+
+#: includes/acf/class-acf-fields.php:319
+msgid "Embed"
+msgstr ""
+
+#: includes/acf/class-acf-fields.php:351
+msgid "Related To"
+msgstr ""
+
+#: includes/acf/class-acf-fields.php:429
+msgid "Identify the author"
+msgstr ""
+
+#: includes/acf/class-acf-fields.php:440
+msgid "I wrote this"
+msgstr ""
+
+#: includes/acf/class-acf-fields.php:441
+msgid "Someone else wrote this"
+msgstr ""
+
+#: includes/acf/class-acf-fields.php:456
+msgid "Add the author or authors of this resource"
+msgstr ""
+
+#: includes/acf/class-acf-fields.php:468
+msgid "Add author"
+msgstr ""
+
+#: includes/acf/class-acf-fields.php:473
+msgid "Author Name"
+msgstr ""
+
+#: includes/acf/class-acf-fields.php:476
+msgid "Add the full name of the author."
+msgstr ""
+
+#: includes/acf/class-acf-fields.php:484
+msgid "Author Link"
+msgstr ""
+
+#: includes/acf/class-acf-fields.php:487
+msgid "Add the website of the author. Required when \"Someone else wrote this\" is selected."
+msgstr ""
+
+#: includes/acf/class-acf-fields.php:537
+msgid "You must supply a link when someone else is the author."
+msgstr ""
+
+#: includes/admin/class-admin-page-settings.php:113
+msgid "Settings for Transition Resources"
+msgstr ""
+
+#: includes/admin/class-admin-page-settings.php:114
+#: includes/admin/class-admin-page-settings.php:117
+msgid "Settings"
+msgstr ""
+
+#. translators: %s: The plural name of the taxonomy terms.
+#: includes/cpt/class-cpt-base.php:246
+#: includes/cpt/class-cpt-base.php:318
+#: includes/cpt/class-cpt-base.php:390
+#: includes/cpt/class-cpt-base.php:462
+#: includes/cpt/class-cpt-base.php:509
+#: includes/cpt/class-cpt-base.php:556
+msgid "Show All %s"
+msgstr ""
+
+#: includes/cpt/class-cpt-loader.php:184
+msgid "Custom Post Types"
+msgstr ""
+
+#: includes/cpt/class-cpt-loader.php:273
+#: includes/cpt/class-cpt-resources.php:151
+#: includes/cpt/class-cpt-resources.php:162
+msgid "Resources"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:152
+msgid "Resource"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:153
+msgid "Add New"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:154
+msgid "Add New Resource"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:155
+msgid "Edit Resource"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:156
+msgid "New Resource"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:157
+msgid "All Resources"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:158
+msgid "View Resource"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:159
+msgid "Search Resources"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:160
+msgid "No matching Resource found"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:161
+msgid "No Resources found in Trash"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:183
+msgid "A resource post type"
+msgstr ""
+
+#. translators: %s: The permalink.
+#: includes/cpt/class-cpt-resources.php:233
+msgid "Resource updated. <a href=\"%s\">View Resource</a>"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:238
+msgid "Custom field updated."
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:239
+msgid "Custom field deleted."
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:240
+msgid "Resource updated."
+msgstr ""
+
+#. translators: %s: The date and time of the revision.
+#: includes/cpt/class-cpt-resources.php:249
+msgid "Resource restored to revision from %s"
+msgstr ""
+
+#. translators: %s: The permalink.
+#: includes/cpt/class-cpt-resources.php:260
+msgid "Resource published. <a href=\"%s\">View Resource</a>"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:265
+msgid "Resource saved."
+msgstr ""
+
+#. translators: %s: The permalink.
+#: includes/cpt/class-cpt-resources.php:270
+msgid "Resource submitted. <a target=\"_blank\" href=\"%s\">Preview Resource</a>"
+msgstr ""
+
+#. translators: 1: The date, 2: The permalink.
+#: includes/cpt/class-cpt-resources.php:277
+msgid "Resource scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview Resource</a>"
+msgstr ""
+
+#. translators: Publish box date format - see https://php.net/date
+#: includes/cpt/class-cpt-resources.php:279
+msgid "M j, Y @ G:i"
+msgstr ""
+
+#. translators: %s: The permalink.
+#: includes/cpt/class-cpt-resources.php:286
+msgid "Resource draft updated. <a target=\"_blank\" href=\"%s\">Preview Resource</a>"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:313
+msgid "Add the name of the Resource"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:335
+msgctxt "taxonomy general name"
+msgid "Resource Types"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:336
+msgctxt "taxonomy singular name"
+msgid "Resource Type"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:337
+msgid "Search Resource Types"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:338
+msgid "All Resource Types"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:339
+msgid "Parent Resource Type"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:340
+msgid "Parent Resource Type:"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:341
+msgid "Edit Resource Type"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:342
+msgid "Update Resource Type"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:343
+msgid "Add New Resource Type"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:344
+msgid "New Resource Type Name"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:345
+msgid "Resource Types"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:346
+msgid "No Resource Types found"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:390
+msgctxt "taxonomy general name"
+msgid "Project Types"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:391
+msgctxt "taxonomy singular name"
+msgid "Project Type"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:392
+msgid "Search Project Types"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:393
+msgid "All Project Types"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:394
+msgid "Parent Project Type"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:395
+msgid "Parent Project Type:"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:396
+msgid "Edit Project Type"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:397
+msgid "Update Project Type"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:398
+msgid "Add New Project Type"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:399
+msgid "New Project Type Name"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:400
+msgid "Project Types"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:401
+msgid "No Project Types found"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:445
+msgctxt "taxonomy general name"
+msgid "Countries"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:446
+msgctxt "taxonomy singular name"
+msgid "Country"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:447
+msgid "Search Countries"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:448
+msgid "All Countries"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:449
+msgid "Parent Country"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:450
+msgid "Parent Country:"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:451
+msgid "Edit Country"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:452
+msgid "Update Country"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:453
+msgid "Add New Country"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:454
+msgid "New Country Name"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:455
+msgid "Countries"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:456
+msgid "No Countries found"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:500
+msgctxt "taxonomy general name"
+msgid "Resource Tags"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:501
+msgctxt "taxonomy singular name"
+msgid "Resource Tag"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:502
+msgid "Search Resource Tags"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:503
+msgid "All Resource Tags"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:504
+msgid "Parent Resource Tag"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:505
+msgid "Parent Resource Tag:"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:506
+msgid "Edit Resource Tag"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:507
+msgid "Update Resource Tag"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:508
+msgid "Add New Resource Tag"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:509
+msgid "New Resource Tag Name"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:510
+msgid "Resource Tags"
+msgstr ""
+
+#: includes/cpt/class-cpt-resources.php:511
+msgid "No Resource Tags found"
+msgstr ""
+
+#. translators: %s: The name of the resource.
+#: includes/embed/class-embed-resources.php:145
+msgid "Resource: %s"
+msgstr ""
