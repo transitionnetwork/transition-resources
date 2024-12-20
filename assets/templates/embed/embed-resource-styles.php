@@ -36,4 +36,8 @@ defined( 'ABSPATH' ) || exit;
 		padding-left: 1em;
 		margin: 0.2em;
 	}
+
+	.wp-embed .taxonomy-label {
+		font-weight: bold;
+	}
 </style>

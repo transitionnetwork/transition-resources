@@ -142,3 +142,17 @@ defined( 'ABSPATH' ) || exit;
 	</div>
 
 <?php endif; ?>
+
+<?php
+
+$tax_args = [
+	'before'        => '<div class="taxonomy-container">' . '<h4>' . esc_html__( 'Categories &amp; Tags', 'transition-resources' ) . '</h4>',
+	'template'      => '<span class="taxonomy-label">%s:</span> <span class="taxonomy-term-list">%l.</span>',
+	'term_template' => '<a href="%1$s" rel="tag">%2$s</a>',
+	'sep'           => '<br />',
+	'after'         => '</div>',
+];
+
+the_taxonomies( $tax_args );
+
+?>
