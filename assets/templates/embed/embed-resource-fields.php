@@ -73,7 +73,7 @@ defined( 'ABSPATH' ) || exit;
 				<?php
 
 				$message = sprintf(
-					/* translators: %d: Comment count. */
+					/* translators: %d: The number of Embedded Media items. */
 					_n( 'Please visit the resource to view the %d media item.', 'Please visit the resource to view the %d media items.', $count, 'transition-resources' ),
 					esc_html( number_format_i18n( $count ) ) // Substitution.
 				);
