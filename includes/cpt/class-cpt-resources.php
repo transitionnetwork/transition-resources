@@ -442,61 +442,6 @@ class Resources extends Base {
 
 		// Labels.
 		$labels = [
-			'name'              => _x( 'Content Types', 'taxonomy general name', 'transition-resources' ),
-			'singular_name'     => _x( 'Content Type', 'taxonomy singular name', 'transition-resources' ),
-			'search_items'      => __( 'Search Content Types', 'transition-resources' ),
-			'all_items'         => __( 'All Content Types', 'transition-resources' ),
-			'parent_item'       => __( 'Parent Content Type', 'transition-resources' ),
-			'parent_item_colon' => __( 'Parent Content Type:', 'transition-resources' ),
-			'edit_item'         => __( 'Edit Content Type', 'transition-resources' ),
-			'update_item'       => __( 'Update Content Type', 'transition-resources' ),
-			'add_new_item'      => __( 'Add New Content Type', 'transition-resources' ),
-			'new_item_name'     => __( 'New Content Type Name', 'transition-resources' ),
-			'menu_name'         => __( 'Content Types', 'transition-resources' ),
-			'not_found'         => __( 'No Content Types found', 'transition-resources' ),
-		];
-
-		// Rewrite rules.
-		$rewrite = [
-			'slug' => 'content-types',
-		];
-
-		// Arguments.
-		$args = [
-			'hierarchical'      => true,
-			'labels'            => $labels,
-			'rewrite'           => $rewrite,
-			// Show column in wp-admin.
-			'show_admin_column' => true,
-			'show_ui'           => true,
-			// REST setup.
-			'show_in_rest'      => true,
-			'rest_base'         => $this->taxonomy_three_rest_base,
-		];
-
-		// Register a taxonomy for this CPT.
-		register_taxonomy( $this->taxonomy_three_name, $this->post_type_name, $args );
-
-		// Flag done.
-		$registered = true;
-
-	}
-
-	/**
-	 * Creates a fourth Custom Taxonomy.
-	 *
-	 * @since 1.0.0
-	 */
-	public function taxonomy_four_create() {
-
-		// Only register once.
-		static $registered;
-		if ( $registered ) {
-			return;
-		}
-
-		// Labels.
-		$labels = [
 			'name'              => _x( 'Countries', 'taxonomy general name', 'transition-resources' ),
 			'singular_name'     => _x( 'Country', 'taxonomy singular name', 'transition-resources' ),
 			'search_items'      => __( 'Search Countries', 'transition-resources' ),
