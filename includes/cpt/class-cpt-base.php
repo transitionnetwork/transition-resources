@@ -113,10 +113,16 @@ abstract class Base {
 			add_action( 'restrict_manage_posts', [ $this, 'taxonomy_four_filter_post_type' ] );
 		}
 
-		// Maybe create free taxonomy.
-		if ( ! empty( $this->tag_name ) ) {
-			add_action( 'init', [ $this, 'tag_create' ] );
-			add_action( 'restrict_manage_posts', [ $this, 'tag_filter_post_type' ] );
+		// Maybe create first free taxonomy.
+		if ( ! empty( $this->tag_one_name ) ) {
+			add_action( 'init', [ $this, 'tag_one_create' ] );
+			add_action( 'restrict_manage_posts', [ $this, 'tag_one_filter_post_type' ] );
+		}
+
+		// Maybe create second free taxonomy.
+		if ( ! empty( $this->tag_two_name ) ) {
+			add_action( 'init', [ $this, 'tag_two_create' ] );
+			add_action( 'restrict_manage_posts', [ $this, 'tag_two_filter_post_type' ] );
 		}
 
 	}
@@ -473,18 +479,18 @@ abstract class Base {
 	// -----------------------------------------------------------------------------------
 
 	/**
-	 * Creates a free Custom Taxonomy.
+	 * Creates the first free Custom Taxonomy.
 	 *
 	 * @since 1.0.0
 	 */
-	public function tag_create() {}
+	public function tag_one_create() {}
 
 	/**
-	 * Adds a filter for the free Custom Taxonomy to the Custom Post Type listing.
+	 * Adds a filter for the first free Custom Taxonomy to the Custom Post Type listing.
 	 *
 	 * @since 1.0.0
 	 */
-	public function tag_filter_post_type() {
+	public function tag_one_filter_post_type() {
 
 		// Access current post type.
 		global $typenow;
@@ -495,17 +501,64 @@ abstract class Base {
 		}
 
 		// Get tax object.
-		$taxonomy = get_taxonomy( $this->tag_name );
+		$taxonomy = get_taxonomy( $this->tag_one_name );
 
 		// Build args.
 		$args = [
 			/* translators: %s: The plural name of the taxonomy terms. */
 			'show_option_all' => sprintf( __( 'Show All %s', 'transition-resources' ), $taxonomy->label ),
-			'taxonomy'        => $this->tag_name,
-			'name'            => $this->tag_name,
+			'taxonomy'        => $this->tag_one_name,
+			'name'            => $this->tag_one_name,
 			'orderby'         => 'name',
 			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
-			'selected'        => isset( $_GET[ $this->tag_name ] ) ? wp_unslash( $_GET[ $this->tag_name ] ) : '',
+			'selected'        => isset( $_GET[ $this->tag_one_name ] ) ? wp_unslash( $_GET[ $this->tag_one_name ] ) : '',
+			'show_count'      => true,
+			'hide_empty'      => true,
+			'value_field'     => 'slug',
+			'hierarchical'    => 1,
+		];
+
+		// Show a dropdown.
+		wp_dropdown_categories( $args );
+
+	}
+
+	// -----------------------------------------------------------------------------------
+
+	/**
+	 * Creates the second free Custom Taxonomy.
+	 *
+	 * @since 1.0.0
+	 */
+	public function tag_two_create() {}
+
+	/**
+	 * Adds a filter for the second free Custom Taxonomy to the Custom Post Type listing.
+	 *
+	 * @since 1.0.0
+	 */
+	public function tag_two_filter_post_type() {
+
+		// Access current post type.
+		global $typenow;
+
+		// Bail if not our post type.
+		if ( $typenow !== $this->post_type_name ) {
+			return;
+		}
+
+		// Get tax object.
+		$taxonomy = get_taxonomy( $this->tag_two_name );
+
+		// Build args.
+		$args = [
+			/* translators: %s: The plural name of the taxonomy terms. */
+			'show_option_all' => sprintf( __( 'Show All %s', 'transition-resources' ), $taxonomy->label ),
+			'taxonomy'        => $this->tag_two_name,
+			'name'            => $this->tag_two_name,
+			'orderby'         => 'name',
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
+			'selected'        => isset( $_GET[ $this->tag_two_name ] ) ? wp_unslash( $_GET[ $this->tag_two_name ] ) : '',
 			'show_count'      => true,
 			'hide_empty'      => true,
 			'value_field'     => 'slug',

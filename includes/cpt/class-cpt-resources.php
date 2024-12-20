@@ -118,20 +118,20 @@ class Resources extends Base {
 	public $taxonomy_four_rest_base = 'country';
 
 	/**
-	 * Free taxonomy name.
+	 * First free taxonomy name.
 	 *
 	 * @since 1.0.0
 	 * @var string
 	 */
-	public $tag_name = 'resource-tag';
+	public $tag_one_name = 'resource-tag';
 
 	/**
-	 * Free taxonomy REST base.
+	 * First free taxonomy REST base.
 	 *
 	 * @since 1.0.0
 	 * @var string
 	 */
-	public $tag_rest_base = 'resource-tag';
+	public $tag_one_rest_base = 'resource-tag';
 
 	/**
 	 * Creates our Custom Post Type.
@@ -483,11 +483,11 @@ class Resources extends Base {
 	}
 
 	/**
-	 * Creates a free Custom Taxonomy.
+	 * Creates the first free Custom Taxonomy.
 	 *
 	 * @since 1.0.0
 	 */
-	public function tag_create() {
+	public function tag_one_create() {
 
 		// Only register once.
 		static $registered;
@@ -526,11 +526,11 @@ class Resources extends Base {
 			'show_ui'           => true,
 			// REST setup.
 			'show_in_rest'      => true,
-			'rest_base'         => $this->tag_rest_base,
+			'rest_base'         => $this->tag_one_rest_base,
 		];
 
 		// Register a free Taxonomy for this CPT.
-		register_taxonomy( $this->tag_name, $this->post_type_name, $args );
+		register_taxonomy( $this->tag_one_name, $this->post_type_name, $args );
 
 		// Flag done.
 		$registered = true;
