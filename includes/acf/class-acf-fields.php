@@ -200,6 +200,7 @@ class Fields {
 		$this->field_related_add();
 		$this->field_license_add();
 		$this->field_author_add();
+		$this->field_image_add();
 
 	}
 
@@ -539,6 +540,50 @@ class Fields {
 
 		// --<
 		return $valid;
+
+	}
+
+	/**
+	 * Adds our ACF "Image" Field.
+	 *
+	 * @since 1.0.0
+	 */
+	private function field_image_add() {
+
+		// Add "Image" Field.
+		$field = [
+			'key'               => $this->field_key . 'picture',
+			'parent'            => $this->group_key . 'resource',
+			'label'             => __( 'Image', 'transition-resources' ),
+			'name'              => 'picture',
+			'type'              => 'image',
+			'instructions'      => '',
+			'required'          => 0,
+			'conditional_logic' => 0,
+			'wrapper'           => [
+				'width' => '',
+				'class' => '',
+				'id'    => '',
+			],
+			'uploader'          => '',
+			'return_format'     => 'array',
+			'library'           => 'all',
+			'mime_types'        => '',
+			'preview_size'      => 'medium',
+
+			/*
+			// Configure image min/max properties.
+			'min_width'         => 1024,
+			'min_height'        => 768,
+			'min_size'          => '',
+			'max_width'         => 1280,
+			'max_height'        => 960,
+			'max_size'          => 10,
+			*/
+		];
+
+		// Now add Field.
+		acf_add_local_field( $field );
 
 	}
 
