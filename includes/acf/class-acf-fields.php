@@ -197,10 +197,10 @@ class Fields {
 		// Add Custom Fields.
 		$this->field_file_add();
 		$this->field_embed_add();
+		$this->field_image_add();
 		$this->field_related_add();
 		$this->field_license_add();
 		$this->field_author_add();
-		$this->field_image_add();
 
 	}
 
