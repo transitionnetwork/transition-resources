@@ -88,6 +88,16 @@ defined( 'ABSPATH' ) || exit;
 
 <?php endif; ?>
 
+<?php $picture = get_field( 'picture' ); ?>
+<?php if ( ! empty( $picture ) ) : ?>
+
+	<h4><?php esc_html_e( 'Image', 'transition-resources' ); ?></h4>
+	<div class="picture-container">
+		<img src="<?php echo esc_url( $picture['url'] ); ?>" alt="<?php echo esc_attr( $picture['alt'] ); ?>" />
+	</div>
+
+<?php endif; ?>
+
 <?php $related = get_field( 'related' ); ?>
 <?php if ( ! empty( $related ) ) : ?>
 

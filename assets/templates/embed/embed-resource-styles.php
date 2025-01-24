@@ -40,4 +40,10 @@ defined( 'ABSPATH' ) || exit;
 	.wp-embed .taxonomy-label {
 		font-weight: bold;
 	}
+
+	.wp-embed .picture-container img {
+		width: 50%;
+		height: auto;
+	}
 </style>
+
