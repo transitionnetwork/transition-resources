@@ -570,15 +570,19 @@ class Fields {
 			'library'           => 'all',
 			'mime_types'        => '',
 			'preview_size'      => 'medium',
+			'min_width'         => 450,
+			'min_height'        => 300,
+			'max_width'         => 2100,
+			'max_height'        => 1400,
 
 			/*
-			// Configure image min/max properties.
+			// Possible image min/max properties.
 			'min_width'         => 1024,
 			'min_height'        => 768,
 			'min_size'          => '',
 			'max_width'         => 1280,
 			'max_height'        => 960,
-			'max_size'          => 10,
+			'max_size'          => 10, // In MB.
 			*/
 		];
 
