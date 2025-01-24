@@ -188,7 +188,7 @@ class Resources extends Base {
 			'show_in_nav_menus'   => true,
 			'show_in_menu'        => true,
 			'show_in_admin_bar'   => true,
-			'has_archive'         => false,
+			'has_archive'         => true,
 			'query_var'           => true,
 			'capability_type'     => 'post',
 			'hierarchical'        => false,
