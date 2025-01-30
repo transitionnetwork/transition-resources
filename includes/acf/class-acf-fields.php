@@ -268,7 +268,7 @@ class Fields {
 					'key'               => $this->field_key . 'description',
 					'label'             => __( 'File Description', 'transition-resources' ),
 					'name'              => 'description',
-					'type'              => 'textarea',
+					'type'              => 'wysiwyg',
 					'instructions'      => __( 'Describe the uploaded file. For PDFs, add the text in plaintext format for search purposes.', 'transition-resources' ),
 					'required'          => 0,
 					'conditional_logic' => 0,
