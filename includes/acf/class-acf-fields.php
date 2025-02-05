@@ -608,7 +608,7 @@ class Fields {
 		// Add support for Jetpack Markdown.
 		if ( ! is_admin() && class_exists( '\WPCom_Markdown' ) ) {
 			$markdown = \WPCom_Markdown::get_instance();
-			return wpautop( $markdown->transform( $value ) );
+			return wpautop( wp_unslash( $markdown->transform( $value ) ) );
 		}
 
 		// --<
