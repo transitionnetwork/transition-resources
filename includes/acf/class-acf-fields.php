@@ -606,8 +606,8 @@ class Fields {
 	public function markdown_render( $value, $post_id, $field ) {
 
 		// Add support for Jetpack Markdown.
-		if ( class_exists( 'WPCom_Markdown' ) ) {
-			$markdown = WPCom_Markdown::get_instance();
+		if ( class_exists( '\WPCom_Markdown' ) ) {
+			$markdown = \WPCom_Markdown::get_instance();
 			return wpautop( $markdown->transform( $value ) );
 		}
 
