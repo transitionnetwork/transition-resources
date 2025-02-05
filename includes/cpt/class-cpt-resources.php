@@ -174,6 +174,7 @@ class Resources extends Base {
 			'editor',
 			'excerpt',
 			'thumbnail',
+			'wpcom-markdown',
 		];
 
 		// Build args.
