@@ -126,6 +126,9 @@ class Fields {
 		// Make sure URL is populated when "Someone else wrote this" is selected.
 		add_filter( 'acf/validate_value', [ $this, 'validate_url' ], 20, 4 );
 
+		// Render the output of the Markdown Field.
+		add_action( 'acf/load_value/type=markdown', [ $this, 'markdown_render' ], 20, 3 );
+
 	}
 
 	/**
@@ -588,6 +591,28 @@ class Fields {
 
 		// Now add Field.
 		acf_add_local_field( $field );
+
+	}
+
+	/**
+	 * Renders the value of a Markdown Field.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed          $value The value found in the database.
+	 * @param integer|string $post_id The ACF "Post ID" from which the value was loaded.
+	 * @param array          $field The Field array holding all the Field options.
+	 */
+	public function markdown_render( $value, $post_id, $field ) {
+
+		// Add support for Jetpack Markdown.
+		if ( class_exists( 'WPCom_Markdown' ) ) {
+			$markdown = WPCom_Markdown::get_instance();
+			return wpautop( $markdown->transform( $value ) );
+		}
+
+		// --<
+		return $value;
 
 	}
 
