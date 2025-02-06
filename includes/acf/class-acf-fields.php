@@ -62,6 +62,14 @@ class Fields {
 	private $author_select;
 
 	/**
+	 * Bridging variable for the "Identify the source of the image" Field value.
+	 *
+	 * @since 1.0.0
+	 * @var integer
+	 */
+	private $image_attribution;
+
+	/**
 	 * Class constructor.
 	 *
 	 * @since 1.0.0
@@ -124,7 +132,10 @@ class Fields {
 		add_action( 'acf/init', [ $this, 'fields_add' ] );
 
 		// Make sure URL is populated when "Someone else wrote this" is selected.
-		add_filter( 'acf/validate_value', [ $this, 'validate_url' ], 20, 4 );
+		add_filter( 'acf/validate_value', [ $this, 'validate_author_url' ], 20, 4 );
+
+		// Make sure URL is populated when "Someone else created this" is selected.
+		add_filter( 'acf/validate_value', [ $this, 'validate_source_url' ], 20, 4 );
 
 		// Render the output of the Markdown Field.
 		add_action( 'acf/load_value/type=markdown', [ $this, 'markdown_render' ], 20, 3 );
@@ -513,7 +524,7 @@ class Fields {
 	 * @param string $input_name The input element's name attribute.
 	 * @return bool $valid The modified valid status.
 	 */
-	public function validate_url( $valid, $value, $field, $input_name ) {
+	public function validate_author_url( $valid, $value, $field, $input_name ) {
 
 		// Bail early if value is already invalid.
 		if ( true !== $valid ) {
@@ -553,10 +564,10 @@ class Fields {
 	 */
 	private function field_image_add() {
 
-		// Add "Image" Field.
-		$field = [
+		// Define "Image" Field.
+		$image_field = [
 			'key'               => $this->field_key . 'picture',
-			'parent'            => $this->group_key . 'resource',
+			'parent'            => $this->group_key . 'image_group',
 			'label'             => __( 'Image', 'transition-resources' ),
 			'name'              => 'picture',
 			'type'              => 'image',
@@ -589,8 +600,143 @@ class Fields {
 			*/
 		];
 
+		// Define "Image attribution" Field.
+		$attribution_field = [
+			'key'           => $this->field_key . 'image_attribution',
+			'parent'        => $this->group_key . 'image_group',
+			'label'         => __( 'Identify the source of the image', 'transition-resources' ),
+			'name'          => 'image_attribution',
+			'type'          => 'select',
+			'instructions'  => '',
+			'required'      => 0,
+			'placeholder'   => '',
+			'allow_null'    => 0,
+			'multiple'      => 0,
+			'ui'            => 0,
+			'return_format' => 'value',
+			'choices'       => [
+				1 => __( 'I created this', 'transition-resources' ),
+				2 => __( 'Someone else created this', 'transition-resources' ),
+			],
+			'default_value' => 1,
+		];
+
+		// Define "Image source" Repeater.
+		$source_field = [
+			'key'               => $this->field_key . 'image_source',
+			'parent'            => $this->group_key . 'image_group',
+			'label'             => __( 'Image source', 'transition-resources' ),
+			'name'              => 'image_source',
+			'type'              => 'repeater',
+			'instructions'      => __( 'Add the source or sources of this image', 'transition-resources' ),
+			'required'          => 0,
+			'conditional_logic' => 0,
+			'wrapper'           => [
+				'width' => '',
+				'class' => '',
+				'id'    => '',
+			],
+			'collapsed'         => '',
+			'min'               => 0,
+			'max'               => 0,
+			'layout'            => 'table',
+			'button_label'      => __( 'Add source', 'transition-resources' ),
+			'sub_fields'        => [
+				[
+					'key'               => $this->field_key . 'source_name',
+					'parent'            => $this->group_key . 'image_source',
+					'label'             => __( 'Source Name', 'transition-resources' ),
+					'name'              => 'source_name',
+					'type'              => 'text',
+					'instructions'      => __( 'Add the name of the source.', 'transition-resources' ),
+					'required'          => 1,
+					'placeholder'       => '',
+					'conditional_logic' => 0,
+				],
+				[
+					'key'               => $this->field_key . 'source_link',
+					'parent'            => $this->group_key . 'image_source',
+					'label'             => __( 'Source Link', 'transition-resources' ),
+					'name'              => 'source_link',
+					'type'              => 'url',
+					'instructions'      => __( 'Add the website of the source. Required when "Someone else created this" is selected.', 'transition-resources' ),
+					'required'          => 0,
+					'allow_null'        => 1,
+					'placeholder'       => '',
+					'conditional_logic' => 0,
+				],
+			],
+		];
+
+		// Add "Image Group" Field.
+		$field = [
+			'key'               => $this->field_key . 'image_group',
+			'parent'            => $this->group_key . 'resource',
+			'label'             => __( 'Image for this Resource', 'transition-resources' ),
+			'name'              => 'image_group',
+			'type'              => 'group',
+			'instructions'      => '',
+			'required'          => 0,
+			'conditional_logic' => 0,
+			'wrapper'           => [
+				'width' => '',
+				'class' => '',
+				'id'    => '',
+			],
+			'layout'            => 'block',
+			'sub_fields'        => [
+				$image_field,
+				$attribution_field,
+				$source_field,
+			],
+		];
+
 		// Now add Field.
 		acf_add_local_field( $field );
+
+	}
+
+	/**
+	 * Validates our ACF "Image Source" Field.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param bool   $valid The valid status. Return a string to display a custom error message.
+	 * @param mixed  $value The value of the Field.
+	 * @param array  $field The Field array.
+	 * @param string $input_name The input element's name attribute.
+	 * @return bool $valid The modified valid status.
+	 */
+	public function validate_source_url( $valid, $value, $field, $input_name ) {
+
+		// Bail early if value is already invalid.
+		if ( true !== $valid ) {
+			return $valid;
+		}
+
+		// Bail if not one the Fields we're interested in.
+		if ( 'image_attribution' !== $field['name'] && 'source_link' !== $field['name'] ) {
+			return $valid;
+		}
+
+		// Store value of "Identify the source" field.
+		if ( 'image_attribution' === $field['name'] ) {
+			$this->image_attribution = (int) $value;
+			return $valid;
+		}
+
+		// Bail if "Someone else created this" is not selected.
+		if ( 2 !== $this->image_attribution ) {
+			return $valid;
+		}
+
+		// The URL Field cannot be empty.
+		if ( empty( $value ) ) {
+			$valid = __( 'You must supply a link when someone else is the creator.', 'transition-resources' );
+		}
+
+		// --<
+		return $valid;
 
 	}
 
