@@ -219,6 +219,168 @@ class Fields {
 	}
 
 	/**
+	 * Adds our ACF "Author" Field.
+	 *
+	 * @since 1.0.0
+	 */
+	private function field_author_add() {
+
+		// Add "Author" Field.
+		$field = [
+			'key'           => $this->field_key . 'author_select',
+			'parent'        => $this->group_key . 'resource',
+			'label'         => __( 'Identify the author', 'transition-resources' ),
+			'name'          => 'author_select',
+			'type'          => 'select',
+			'instructions'  => '',
+			'required'      => 0,
+			'placeholder'   => '',
+			'allow_null'    => 0,
+			'multiple'      => 0,
+			'ui'            => 0,
+			'return_format' => 'value',
+			'choices'       => [
+				1 => __( 'I wrote this', 'transition-resources' ),
+				2 => __( 'Someone else wrote this', 'transition-resources' ),
+			],
+			'default_value' => 1,
+		];
+
+		// Now add Field.
+		acf_add_local_field( $field );
+
+		// Add "Authors" Repeater.
+		$field = [
+			'key'               => $this->field_key . 'authors',
+			'parent'            => $this->group_key . 'resource',
+			'label'             => __( 'Authors', 'transition-resources' ),
+			'name'              => 'authors',
+			'type'              => 'repeater',
+			'instructions'      => __( 'Add the author or authors of this resource', 'transition-resources' ),
+			'required'          => 0,
+			'conditional_logic' => 0,
+			'wrapper'           => [
+				'width' => '',
+				'class' => '',
+				'id'    => '',
+			],
+			'collapsed'         => '',
+			'min'               => 0,
+			'max'               => 0,
+			'layout'            => 'table',
+			'button_label'      => __( 'Add author', 'transition-resources' ),
+			'sub_fields'        => [
+				[
+					'key'               => $this->field_key . 'author_name',
+					'parent'            => $this->group_key . 'resource',
+					'label'             => __( 'Author Name', 'transition-resources' ),
+					'name'              => 'author_name',
+					'type'              => 'text',
+					'instructions'      => __( 'Add the full name of the author.', 'transition-resources' ),
+					'required'          => 1,
+					'placeholder'       => '',
+					'conditional_logic' => 0,
+				],
+				[
+					'key'               => $this->field_key . 'author_link',
+					'parent'            => $this->group_key . 'resource',
+					'label'             => __( 'Author Link', 'transition-resources' ),
+					'name'              => 'author_link',
+					'type'              => 'url',
+					'instructions'      => __( 'Add the website of the author. Required when "Someone else wrote this" is selected.', 'transition-resources' ),
+					'required'          => 0,
+					'allow_null'        => 1,
+					'placeholder'       => '',
+					'conditional_logic' => 0,
+				],
+			],
+		];
+
+		// Now add Field.
+		acf_add_local_field( $field );
+
+	}
+
+	/**
+	 * Validates our ACF "Author" Field.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param bool   $valid The valid status. Return a string to display a custom error message.
+	 * @param mixed  $value The value of the Field.
+	 * @param array  $field The Field array.
+	 * @param string $input_name The input element's name attribute.
+	 * @return bool $valid The modified valid status.
+	 */
+	public function validate_author_url( $valid, $value, $field, $input_name ) {
+
+		// Bail early if value is already invalid.
+		if ( true !== $valid ) {
+			return $valid;
+		}
+
+		// Bail if not one the Fields we're interested in.
+		if ( 'author_select' !== $field['name'] && 'author_link' !== $field['name'] ) {
+			return $valid;
+		}
+
+		// Store value of "Identify the author" field.
+		if ( 'author_select' === $field['name'] ) {
+			$this->author_select = (int) $value;
+			return $valid;
+		}
+
+		// Bail if "Someone else write this" is not selected.
+		if ( 2 !== $this->author_select ) {
+			return $valid;
+		}
+
+		// The URL Field cannot be empty.
+		if ( empty( $value ) ) {
+			$valid = __( 'You must supply a link when someone else is the author.', 'transition-resources' );
+		}
+
+		// --<
+		return $valid;
+
+	}
+
+	/**
+	 * Adds our ACF "License" Field.
+	 *
+	 * @since 1.0.0
+	 */
+	private function field_license_add() {
+
+		// Add "Related To" Field.
+		$field = [
+			'key'               => $this->field_key . 'license',
+			'parent'            => $this->group_key . 'resource',
+			'label'             => __( 'License', 'transition-resources' ),
+			'name'              => 'license',
+			'type'              => 'select',
+			'instructions'      => '',
+			'required'          => 1,
+			'placeholder'       => '',
+			'allow_null'        => 0,
+			'multiple'          => 0,
+			'ui'                => 0,
+			'return_format'     => 'value',
+			'choices'           => [
+				1 => __( 'CC-BY', 'transition-resources' ),
+				2 => __( 'CC-BY-NC', 'transition-resources' ),
+				3 => __( 'All rights reserved', 'transition-resources' ),
+			],
+			'default_value'     => 1,
+			'conditional_logic' => 0,
+		];
+
+		// Now add Field.
+		acf_add_local_field( $field );
+
+	}
+
+	/**
 	 * Adds our ACF "File" Field.
 	 *
 	 * @since 1.0.0
@@ -349,211 +511,6 @@ class Fields {
 
 		// Now add Field.
 		acf_add_local_field( $field );
-
-	}
-
-	/**
-	 * Adds our ACF "Related" Field.
-	 *
-	 * @since 1.0.0
-	 */
-	private function field_related_add() {
-
-		// Add "Related To" Field.
-		$field = [
-			'key'                  => $this->field_key . 'related',
-			'parent'               => $this->group_key . 'resource',
-			'label'                => __( 'Related To', 'transition-resources' ),
-			'name'                 => 'related',
-			'type'                 => 'post_object',
-			'instructions'         => '',
-			'required'             => 0,
-			'conditional_logic'    => 0,
-			'wrapper'              => [
-				'width' => '',
-				'class' => '',
-				'id'    => '',
-			],
-			'post_type'            => [
-				'resource',
-			],
-			'post_status'          => [
-				'publish',
-			],
-			'taxonomy'             => [],
-			'return_format'        => 'object',
-			'multiple'             => 1,
-			'allow_null'           => 1,
-			'ui'                   => 1,
-			'allow_in_bindings'    => 1,
-			'bidirectional'        => 0,
-			'bidirectional_target' => [],
-		];
-
-		// Now add Field.
-		acf_add_local_field( $field );
-
-	}
-
-	/**
-	 * Adds our ACF "License" Field.
-	 *
-	 * @since 1.0.0
-	 */
-	private function field_license_add() {
-
-		// Add "Related To" Field.
-		$field = [
-			'key'               => $this->field_key . 'license',
-			'parent'            => $this->group_key . 'resource',
-			'label'             => __( 'License', 'transition-resources' ),
-			'name'              => 'license',
-			'type'              => 'select',
-			'instructions'      => '',
-			'required'          => 1,
-			'placeholder'       => '',
-			'allow_null'        => 0,
-			'multiple'          => 0,
-			'ui'                => 0,
-			'return_format'     => 'value',
-			'choices'           => [
-				1 => __( 'CC-BY', 'transition-resources' ),
-				2 => __( 'CC-BY-NC', 'transition-resources' ),
-				3 => __( 'All rights reserved', 'transition-resources' ),
-			],
-			'default_value'     => 1,
-			'conditional_logic' => 0,
-		];
-
-		// Now add Field.
-		acf_add_local_field( $field );
-
-	}
-
-	/**
-	 * Adds our ACF "Author" Field.
-	 *
-	 * @since 1.0.0
-	 */
-	private function field_author_add() {
-
-		// Add "Author" Field.
-		$field = [
-			'key'           => $this->field_key . 'author_select',
-			'parent'        => $this->group_key . 'resource',
-			'label'         => __( 'Identify the author', 'transition-resources' ),
-			'name'          => 'author_select',
-			'type'          => 'select',
-			'instructions'  => '',
-			'required'      => 0,
-			'placeholder'   => '',
-			'allow_null'    => 0,
-			'multiple'      => 0,
-			'ui'            => 0,
-			'return_format' => 'value',
-			'choices'       => [
-				1 => __( 'I wrote this', 'transition-resources' ),
-				2 => __( 'Someone else wrote this', 'transition-resources' ),
-			],
-			'default_value' => 1,
-		];
-
-		// Now add Field.
-		acf_add_local_field( $field );
-
-		// Add "Authors" Repeater.
-		$field = [
-			'key'               => $this->field_key . 'authors',
-			'parent'            => $this->group_key . 'resource',
-			'label'             => __( 'Authors', 'transition-resources' ),
-			'name'              => 'authors',
-			'type'              => 'repeater',
-			'instructions'      => __( 'Add the author or authors of this resource', 'transition-resources' ),
-			'required'          => 0,
-			'conditional_logic' => 0,
-			'wrapper'           => [
-				'width' => '',
-				'class' => '',
-				'id'    => '',
-			],
-			'collapsed'         => '',
-			'min'               => 0,
-			'max'               => 0,
-			'layout'            => 'table',
-			'button_label'      => __( 'Add author', 'transition-resources' ),
-			'sub_fields'        => [
-				[
-					'key'               => $this->field_key . 'author_name',
-					'parent'            => $this->group_key . 'resource',
-					'label'             => __( 'Author Name', 'transition-resources' ),
-					'name'              => 'author_name',
-					'type'              => 'text',
-					'instructions'      => __( 'Add the full name of the author.', 'transition-resources' ),
-					'required'          => 1,
-					'placeholder'       => '',
-					'conditional_logic' => 0,
-				],
-				[
-					'key'               => $this->field_key . 'author_link',
-					'parent'            => $this->group_key . 'resource',
-					'label'             => __( 'Author Link', 'transition-resources' ),
-					'name'              => 'author_link',
-					'type'              => 'url',
-					'instructions'      => __( 'Add the website of the author. Required when "Someone else wrote this" is selected.', 'transition-resources' ),
-					'required'          => 0,
-					'allow_null'        => 1,
-					'placeholder'       => '',
-					'conditional_logic' => 0,
-				],
-			],
-		];
-
-		// Now add Field.
-		acf_add_local_field( $field );
-
-	}
-
-	/**
-	 * Validates our ACF "Author" Field.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param bool   $valid The valid status. Return a string to display a custom error message.
-	 * @param mixed  $value The value of the Field.
-	 * @param array  $field The Field array.
-	 * @param string $input_name The input element's name attribute.
-	 * @return bool $valid The modified valid status.
-	 */
-	public function validate_author_url( $valid, $value, $field, $input_name ) {
-
-		// Bail early if value is already invalid.
-		if ( true !== $valid ) {
-			return $valid;
-		}
-
-		// Bail if not one the Fields we're interested in.
-		if ( 'author_select' !== $field['name'] && 'author_link' !== $field['name'] ) {
-			return $valid;
-		}
-
-		// Store value of "Identify the author" field.
-		if ( 'author_select' === $field['name'] ) {
-			$this->author_select = (int) $value;
-			return $valid;
-		}
-
-		// Bail if "Someone else write this" is not selected.
-		if ( 2 !== $this->author_select ) {
-			return $valid;
-		}
-
-		// The URL Field cannot be empty.
-		if ( empty( $value ) ) {
-			$valid = __( 'You must supply a link when someone else is the author.', 'transition-resources' );
-		}
-
-		// --<
-		return $valid;
 
 	}
 
@@ -737,6 +694,49 @@ class Fields {
 
 		// --<
 		return $valid;
+
+	}
+
+	/**
+	 * Adds our ACF "Related" Field.
+	 *
+	 * @since 1.0.0
+	 */
+	private function field_related_add() {
+
+		// Add "Related To" Field.
+		$field = [
+			'key'                  => $this->field_key . 'related',
+			'parent'               => $this->group_key . 'resource',
+			'label'                => __( 'Related To', 'transition-resources' ),
+			'name'                 => 'related',
+			'type'                 => 'post_object',
+			'instructions'         => '',
+			'required'             => 0,
+			'conditional_logic'    => 0,
+			'wrapper'              => [
+				'width' => '',
+				'class' => '',
+				'id'    => '',
+			],
+			'post_type'            => [
+				'resource',
+			],
+			'post_status'          => [
+				'publish',
+			],
+			'taxonomy'             => [],
+			'return_format'        => 'object',
+			'multiple'             => 1,
+			'allow_null'           => 1,
+			'ui'                   => 1,
+			'allow_in_bindings'    => 1,
+			'bidirectional'        => 0,
+			'bidirectional_target' => [],
+		];
+
+		// Now add Field.
+		acf_add_local_field( $field );
 
 	}
 
