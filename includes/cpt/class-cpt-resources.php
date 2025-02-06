@@ -173,7 +173,6 @@ class Resources extends Base {
 			'title',
 			'editor',
 			'excerpt',
-			'thumbnail',
 			'wpcom-markdown',
 		];
 
