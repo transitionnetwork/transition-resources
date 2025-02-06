@@ -45,5 +45,9 @@ defined( 'ABSPATH' ) || exit;
 		width: 50%;
 		height: auto;
 	}
+
+	.wp-embed .picture-container h5 {
+		margin: 0.2em 0;
+	}
 </style>
 

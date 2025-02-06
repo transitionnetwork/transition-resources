@@ -94,6 +94,25 @@ defined( 'ABSPATH' ) || exit;
 	<h4><?php esc_html_e( 'Image', 'transition-resources' ); ?></h4>
 	<div class="picture-container">
 		<img src="<?php echo esc_url( $picture['url'] ); ?>" alt="<?php echo esc_attr( $picture['alt'] ); ?>" />
+		<?php if ( have_rows( 'image_source' ) ) : ?>
+			<h5><?php esc_html_e( 'Image Source', 'transition-resources' ); ?></h5>
+			<div class="source-container">
+				<ul>
+					<?php while ( have_rows( 'image_source' ) ) : ?>
+						<?php the_row(); ?>
+						<?php $source_name = get_sub_field( 'source_name' ); ?>
+						<?php $source_link = get_sub_field( 'source_link' ); ?>
+						<li>
+							<?php if ( ! empty( $source_link ) ) : ?>
+								<a href="<?php echo esc_url( $source_link ); ?>" target="_blank"><?php echo esc_html( $source_name ); ?></a>
+							<?php else : ?>
+								<?php echo esc_html( $source_name ); ?>
+							<?php endif; ?>
+						</li>
+					<?php endwhile; ?>
+				</ul>
+			</div>
+		<?php endif; ?>
 	</div>
 
 <?php endif; ?>
