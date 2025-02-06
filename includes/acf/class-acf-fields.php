@@ -522,9 +522,9 @@ class Fields {
 	private function field_image_add() {
 
 		// Define "Image" Field.
-		$image_field = [
+		$field = [
 			'key'               => $this->field_key . 'picture',
-			'parent'            => $this->group_key . 'image_group',
+			'parent'            => $this->group_key . 'resource',
 			'label'             => __( 'Image', 'transition-resources' ),
 			'name'              => 'picture',
 			'type'              => 'image',
@@ -557,10 +557,13 @@ class Fields {
 			*/
 		];
 
+		// Now add Field.
+		acf_add_local_field( $field );
+
 		// Define "Image attribution" Field.
-		$attribution_field = [
+		$field = [
 			'key'           => $this->field_key . 'image_attribution',
-			'parent'        => $this->group_key . 'image_group',
+			'parent'        => $this->group_key . 'resource',
 			'label'         => __( 'Identify the source of the image', 'transition-resources' ),
 			'name'          => 'image_attribution',
 			'type'          => 'select',
@@ -578,10 +581,13 @@ class Fields {
 			'default_value' => 1,
 		];
 
+		// Now add Field.
+		acf_add_local_field( $field );
+
 		// Define "Image source" Repeater.
-		$source_field = [
+		$field = [
 			'key'               => $this->field_key . 'image_source',
-			'parent'            => $this->group_key . 'image_group',
+			'parent'            => $this->group_key . 'resource',
 			'label'             => __( 'Image source', 'transition-resources' ),
 			'name'              => 'image_source',
 			'type'              => 'repeater',
@@ -622,29 +628,6 @@ class Fields {
 					'placeholder'       => '',
 					'conditional_logic' => 0,
 				],
-			],
-		];
-
-		// Add "Image Group" Field.
-		$field = [
-			'key'               => $this->field_key . 'image_group',
-			'parent'            => $this->group_key . 'resource',
-			'label'             => __( 'Image for this Resource', 'transition-resources' ),
-			'name'              => 'image_group',
-			'type'              => 'group',
-			'instructions'      => '',
-			'required'          => 0,
-			'conditional_logic' => 0,
-			'wrapper'           => [
-				'width' => '',
-				'class' => '',
-				'id'    => '',
-			],
-			'layout'            => 'block',
-			'sub_fields'        => [
-				$image_field,
-				$attribution_field,
-				$source_field,
 			],
 		];
 
